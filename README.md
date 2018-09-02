@@ -7,23 +7,13 @@
 yarn add --dev @yodasws/gulp-json-replace
 ```
 
-`gulpfile.js`:
-```javascript
-const jr = require('gulp-json-replace');
-
-gulp.task('json-replace', function() {
-    return gulp.src('src/**/*.html')
-        .pipe(jr({
-            src: './config.json',
-            prefix: '%%'
-        }))
-        .pipe(gulp.dest('dist/'));
-});
+```bash
+npm install @yodasws/gulp-json-replace --save-dev
 ```
 
 ## Usage
 
-Assume you wanna replace a few things in an html file:<br/>
+### Basic
 **index.html**
 ```html
 <html>
@@ -38,7 +28,6 @@ Assume you wanna replace a few things in an html file:<br/>
 </html>
 ```
 
-And you put all your content in your config file:<br/>
 **config.json**
 ```javascript
 {
@@ -47,7 +36,20 @@ And you put all your content in your config file:<br/>
 }
 ```
 
-Rusult:
+**gulpfile.js**:
+```javascript
+const replace = require('gulp-json-replace');
+
+gulp.task('json-replace', function() {
+    return gulp.src('src/**/*.html')
+        .pipe(replace({
+            src: './config.json',
+        }))
+        .pipe(gulp.dest('dist/'));
+});
+```
+
+Result:
 ```html
 <!DOCTYPE html>
 <html>
@@ -62,29 +64,56 @@ Rusult:
 </html>
 ```
 
-### replace(options)
+### Advanced
+**index.html**
+```html
+<h1>%title%</h1>
+<p>%openParagraph%</p>
+```
 
-#### options
-Type: `Object`
+**gulpfile.js**:
+```javascript
+gulp.task('json-replace', function() {
+    return gulp.src('src/**/*.html')
+        .pipe(replace({
+            src: {
+				title: 'Great New Story!',
+			},
+			keepNoMatch: true,
+			prefix: '%',
+			suffix: '%',
+        }))
+        .pipe(gulp.dest('dist/'));
+});
+```
 
-##### options.src
+Result:
+```html
+<h1>Great New Story!</h1>
+<p>%openParagraph%</p>
+```
+
+## Options
+
+### options.src
 Type: `String` or `Object`<br/>
-Accept the path of json file, or an JavaScript Object Literals.
+Accepts either the path of the JSON content file or a JavaScript object.
 
-##### options.prefix
+### options.prefix
 Type: `String`<br/>
 Default: `%%`<br/>
 The string to open the search field.
 
-##### options.suffix
+### options.suffix
 Type: `String`<br/>
 Default: ``<br/>
 The string to close the search field.
 
-##### options.mode
-Type: `String`<br/>
-Default: `strict`<br/>
-Specify the match mode, the value would be `strict` or `loose`, if set to `loose`, it will ignore the file extension. For example: "index.html" will match files of "index.hbs", "index.html", "index.xxx"...
+### options.keepNoMatch
+Type: `Boolean`<br/>
+Default: `false`<br/>
+If true, will replace any search pattern not found in your JSON with an empty string.
 
+## See also
 [MDN documentation for RegExp]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
 [MDN documentation for String.replace]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter

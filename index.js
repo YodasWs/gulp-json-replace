@@ -12,9 +12,10 @@ module.exports = (options) => {
         json = options.src;
     }
 
-    const isLoose = options.mode === 'loose';
     const prefix = options.prefix || '%%';
     const suffix = options.suffix || '';
+    const keepNoMatch = options.keepNoMatch || false;
+
     const stream = through.obj((file, enc, cb) => {
         // get the file path
         const path = file.path;
@@ -24,7 +25,7 @@ module.exports = (options) => {
 
 		const search = new RegExp(
 			suffix !== ''
-				? `${prefix}(?!${suffix}).*${suffix}`
+				? `${prefix}(?!${suffix})(.*)${suffix}`
 				: `${prefix}([\\w-]+)`,
 			'g',
 		);
@@ -35,6 +36,9 @@ module.exports = (options) => {
 			keys.forEach((key) => {
 				replacement = json[key];
 			});
+			if (replacement === undefined && keepNoMatch) {
+				return match;
+			}
 			return replacement === undefined ? '' : replacement;
 		};
 
