@@ -5,23 +5,23 @@ const fs = require('fs');
 const rs = require('replacestream');
 
 module.exports = (options) => {
-    let json;
-    if (typeof options.src == 'string') {
-        json = JSON.parse(fs.readFileSync(options.src, 'utf8'));
-    } else if (typeof options.src == 'object') {
-        json = options.src;
-    }
+	let json;
+	if (typeof options.src == 'string') {
+		json = JSON.parse(fs.readFileSync(options.src, 'utf8'));
+	} else if (typeof options.src == 'object') {
+		json = options.src;
+	}
 
-    const prefix = options.prefix || '%%';
-    const suffix = options.suffix || '';
-    const keepNoMatch = options.keepNoMatch || false;
+	const prefix = options.prefix || '%%';
+	const suffix = options.suffix || '';
+	const keepNoMatch = options.keepNoMatch || false;
 
-    const stream = through.obj((file, enc, cb) => {
-        // get the file path
-        const path = file.path;
-        if (file.isNull()) {
-            return cb(null, file);
-        }
+	const stream = through.obj((file, enc, cb) => {
+		// get the file path
+		const path = file.path;
+		if (file.isNull()) {
+			return cb(null, file);
+		}
 
 		const search = new RegExp(
 			suffix !== ''
@@ -57,6 +57,6 @@ module.exports = (options) => {
 			}
 		}
 		return cb(null, file);
-    });
-    return stream;
+	});
+	return stream;
 };
