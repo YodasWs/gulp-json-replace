@@ -67,8 +67,8 @@ Result:
 ### Advanced
 **index.html**
 ```html
-<h1>%title%</h1>
-<p>%openParagraph%</p>
+<h1>{title}</h1>
+<p>{openParagraph}</p>
 ```
 
 **gulpfile.js**:
@@ -80,8 +80,8 @@ gulp.task('json-replace', function() {
 				title: 'Great New Story!',
 			},
 			keepNoMatch: true,
-			prefix: '%',
-			suffix: '%',
+			prefix: '{',
+			suffix: '}',
         }))
         .pipe(gulp.dest('dist/'));
 });
@@ -90,7 +90,7 @@ gulp.task('json-replace', function() {
 Result:
 ```html
 <h1>Great New Story!</h1>
-<p>%openParagraph%</p>
+<p>{openParagraph}</p>
 ```
 
 ## Options
