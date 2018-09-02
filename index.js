@@ -30,14 +30,10 @@ module.exports = (options) => {
 		);
 
 		const replacement = (match, search) => {
-			console.log('key:', search);
 			const keys = search.split('.');
-			console.log('keys:', keys);
 			let replacement = '';
 			keys.forEach((key) => {
-				console.log('key:', key);
 				replacement = json[key];
-				console.log('R:', replacement);
 			});
 			return replacement === undefined ? '' : replacement;
 		};
