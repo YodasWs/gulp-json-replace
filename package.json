@@ -1,14 +1,11 @@
 {
   "name": "gulp-json-replace",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "Replace String From A JSON File.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/chenjuneking/gulp-json-replace.git"
+    "url": "git://github.com/YodasWs/gulp-json-replace.git"
   },
   "keywords": [
     "gulpplugin",
@@ -17,25 +14,27 @@
     "file replace",
     "json replace"
   ],
-  "author": {
-    "name": "jacketchen",
-    "email": "342115615@qq.com",
-    "url": "https://github.com/chenjuneking"
-  },
+  "author": [
+    {
+      "name": "jacketchen",
+      "email": "342115615@qq.com",
+      "url": "https://github.com/chenjuneking"
+    },
+    {
+      "name": "Sam Grundman",
+      "url": "https://github.com/YodasWs"
+    }
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chenjuneking/gulp-json-replace/issues"
+    "url": "https://github.com/YodasWs/gulp-json-replace/issues"
   },
   "engines": {
     "node": ">=0.10"
   },
-  "homepage": "https://github.com/chenjuneking/gulp-json-replace",
+  "homepage": "https://github.com/YodasWs/gulp-json-replace",
   "dependencies": {
     "through2": "0.6.3",
     "replacestream": "2.0.0"
-  },
-  "devDependencies": {
-    "replacestream": "2.0.0",
-    "through2": "0.6.3"
   }
 }
